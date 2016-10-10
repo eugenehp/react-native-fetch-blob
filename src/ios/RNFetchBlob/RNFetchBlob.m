@@ -413,6 +413,20 @@ RCT_EXPORT_METHOD(cancelRequest:(NSString *)taskId callback:(RCTResponseSenderBl
 
 }
 
+#pragma mark - net.suspendRequest
+RCT_EXPORT_METHOD(suspendRequest:(NSString *)taskId callback:(RCTResponseSenderBlock)callback) {
+    [RNFetchBlobNetwork suspendRequest:taskId];
+    callback(@[[NSNull null], taskId]);
+
+}
+
+#pragma mark - net.resumeRequest
+RCT_EXPORT_METHOD(resumeRequest:(NSString *)taskId callback:(RCTResponseSenderBlock)callback) {
+    [RNFetchBlobNetwork resumeRequest:taskId];
+    callback(@[[NSNull null], taskId]);
+
+}
+
 #pragma mark - net.enableProgressReport
 RCT_EXPORT_METHOD(enableProgressReport:(NSString *)taskId interval:(nonnull NSNumber*)interval count:(nonnull NSNumber*)count  {
     

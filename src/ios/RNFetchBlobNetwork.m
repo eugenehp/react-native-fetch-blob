@@ -485,6 +485,20 @@ NSOperationQueue *taskQueue;
         [task cancel];
 }
 
++ (void) suspendRequest:(NSString *)taskId
+{
+    NSURLSessionDataTask * task = [taskTable objectForKey:taskId];
+    if(task != nil && task.state == NSURLSessionTaskStateRunning)
+        [task suspend];
+}
+
++ (void) resumeRequest:(NSString *)taskId
+{
+    NSURLSessionDataTask * task = [taskTable objectForKey:taskId];
+    if(task != nil && task.state == NSURLSessionTaskStateSuspended)
+        [task suspend];
+}
+
 
 - (void) URLSession:(NSURLSession *)session didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable credantial))completionHandler
 {

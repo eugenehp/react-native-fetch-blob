@@ -180,6 +180,8 @@ function fetch(...args:any):Promise {
       delete promise['stateChange']
       delete promise['part']
       delete promise['cancel']
+      delete promise['suspend']
+      delete promise['resume']
       promise.cancel = () => {}
 
       if(err)
@@ -245,6 +247,14 @@ function fetch(...args:any):Promise {
     promise.onStateChange = fn
     return promise
   }
+  promise.suspend = (fn) => {
+    fn = fn || function(){}
+    RNFetchBlob.suspendRequest(taskId, fn)
+  }
+  promise.resume = (fn) => {
+    fn = fn || function(){}
+    RNFetchBlob.resumeRequest(taskId, fn)
+  }
   promise.cancel = (fn) => {
     fn = fn || function(){}
     subscription.remove()
@@ -252,6 +262,7 @@ function fetch(...args:any):Promise {
     stateEvent.remove()
     RNFetchBlob.cancelRequest(taskId, fn)
   }
+
   promise.taskId = taskId
 
   return promise

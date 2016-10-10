@@ -75,6 +75,8 @@ class RNFetchBlobFetchPolyfill {
 
       // extend task.then progress with report and cancelling functions
       statefulPromise.cancel = task.cancel
+      statefulPromise.suspend = task.suspend
+      statefulPromise.resume = task.resume
       statefulPromise.progress = task.progress
       statefulPromise.uploadProgress = task.uploadProgress
 
